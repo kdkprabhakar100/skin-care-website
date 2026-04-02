@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import Hero from './components/Hero';
 
 function App() {
   return (
-    <h1>Hello Cream Website 🚀</h1>
+    <div>
+      <h1 className="text-4xl text-red-500">Test Tailwind</h1>
+      <Hero/>
+    </div>
   );
 }
 
