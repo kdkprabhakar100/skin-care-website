@@ -5,7 +5,7 @@ function Navbar() {
     <div className="flex justify-between items-center px-8 py-4 bg-white shadow-md">
 
       <Link to="/" className="text-xl font-bold text-[#6D1F2F]">
-        BeautyStore
+        SkinAura
       </Link>
 
       <div className="space-x-6 hidden md:flex">

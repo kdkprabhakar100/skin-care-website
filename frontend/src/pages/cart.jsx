@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const {
@@ -40,6 +41,11 @@ function Cart() {
             >
               Remove
             </button>
+            <Link to="/checkout">
+            <button className="mt-6 bg-[#6D1F2F] text-white px-6 py-3 rounded-lg">
+              Proceed to Checkout
+            </button>
+          </Link>
           </div>
         ))
       )}
