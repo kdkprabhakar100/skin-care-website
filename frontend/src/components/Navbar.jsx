@@ -1,24 +1,39 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 function Navbar() {
+  const { totalItems } = useContext(CartContext);
+
   return (
-    <div className="flex justify-between items-center px-8 py-4 bg-white shadow-md">
+    <div className="flex justify-between items-center px-10 py-4 bg-white shadow">
 
-      <Link to="/" className="text-xl font-bold text-[#6D1F2F]">
+      {/* LOGO */}
+      <h1 className="text-xl font-bold text-[#6D1F2F]">
         SkinAura
-      </Link>
+      </h1>
 
-      <div className="space-x-6 hidden md:flex">
+      {/* NAV LINKS */}
+      <div className="flex gap-6 items-center">
+
         <Link to="/">Home</Link>
         <Link to="/shop">Shop</Link>
-      </div>
 
-      <Link
-        to="/cart"
-        className="bg-[#6D1F2F] text-white px-4 py-2 rounded"
-      >
-        Cart
-      </Link>
+        {/* 🛒 CART ICON */}
+        <Link to="/cart" className="relative">
+
+          <span className="text-2xl">🛒</span>
+
+          {/* 🔥 BADGE */}
+          {totalItems > 0 && (
+            <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+              {totalItems}
+            </span>
+          )}
+
+        </Link>
+
+      </div>
 
     </div>
   );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { fetchProducts } from "../services/productServices.js";
+import { useLocation } from "react-router-dom";
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -8,15 +9,30 @@ function Shop() {
   const [category, setCategory] = useState("All");
   const [brand, setBrand] = useState("All");
 
+  const location = useLocation();
+
+  // 🔥 Get category from URL
+  const query = new URLSearchParams(location.search);
+  const categoryFromURL = query.get("category");
+
+  // 🔄 Fetch products
   useEffect(() => {
     fetchProducts().then(setProducts);
   }, []);
 
+  // 🔄 Sync category with URL
+  useEffect(() => {
+    if (categoryFromURL) {
+      setCategory(categoryFromURL);
+    }
+  }, [categoryFromURL]);
+
   // 🔥 Filtering logic
   const filteredProducts = products.filter((p) => {
     return (
-      (category === "All" || p.category === category) &&
-      (brand === "All" || p.brand === brand) &&
+      (category === "All" ||
+  p.category?.toLowerCase() === category.toLowerCase()) &&
+      (brand === "All" || p.brand?.toLowerCase() === brand.toLowerCase()) &&
       p.name.toLowerCase().includes(search.toLowerCase())
     );
   });
@@ -39,14 +55,20 @@ function Shop() {
       {/* 🎯 FILTERS */}
       <div className="flex gap-4 mb-6">
 
-        <select onChange={(e) => setCategory(e.target.value)}>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="All">All Categories</option>
           <option value="Moisturizer">Moisturizer</option>
           <option value="Serum">Serum</option>
           <option value="Sunscreen">Sunscreen</option>
         </select>
 
-        <select onChange={(e) => setBrand(e.target.value)}>
+        <select
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+        >
           <option value="All">All Brands</option>
           <option value="CeraVe">CeraVe</option>
           <option value="The Ordinary">The Ordinary</option>
