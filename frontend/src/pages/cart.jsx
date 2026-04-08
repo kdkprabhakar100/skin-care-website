@@ -11,7 +11,7 @@ function Cart() {
     totalPrice,
   } = useContext(CartContext);
 
-  const navigate = useNavigate(); // ✅ FIXED
+  const navigate = useNavigate(); 
 
   return (
     <div className="p-10 bg-[#F8F6F4] min-h-screen">

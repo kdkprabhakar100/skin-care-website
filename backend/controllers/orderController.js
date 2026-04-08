@@ -1,22 +1,31 @@
 const Order = require("../models/Order");
 
-// ✅ CREATE ORDER
 const createOrder = async (req, res) => {
   try {
-    console.log("BODY:", req.body); // 🔥 DEBUG
+    const { customer, items, total } = req.body;
 
-    const order = await Order.create(req.body);
+    console.log("Incoming Order:", req.body); // 🔥 debug
 
-    res.status(201).json(order);
+    if (!customer || !items || !total) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    const order = new Order({
+      customer,
+      items,
+      total,
+    });
+
+    const savedOrder = await order.save();
+
+    res.status(201).json(savedOrder);
 
   } catch (error) {
-    console.error("ORDER ERROR:", error); // 🔥 SEE REAL ERROR
-
-    res.status(500).json({
-      message: error.message,
-    });
+    console.error("Order error:", error);
+    res.status(500).json({ message: "Error creating order" });
   }
 };
+
 
 // ✅ GET ALL ORDERS (for admin later)
 const getOrders = async (req, res) => {

@@ -18,7 +18,7 @@ function Checkout() {
 
 
 const navigate = useNavigate();
-
+console.log("SENDING ORDER:", cart);
 const handleOrder = async () => {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
@@ -26,18 +26,21 @@ const handleOrder = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: form.name,        // ✅ FIXED
-        address: form.address,  // ✅ FIXED
-        phone: form.phone,      // ✅ FIXED
-        items: cart.map(item => ({
-          productId: item._id,
-          name: item.name,
-          price: item.price,
-          quantity: item.qty,
-        })),
-        total: totalPrice,
-      }),
+    body: JSON.stringify({
+      customer: {
+        name: form.name,
+        address: form.address,
+        phone: form.phone,
+      },
+
+      items: cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.qty || 1,
+      })),
+
+      total: totalPrice,
+    })
     });
 
     const data = await res.json();

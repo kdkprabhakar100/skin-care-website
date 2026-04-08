@@ -23,10 +23,10 @@ function Orders() {
         >
           <div className="mb-3">
             <h2 className="font-bold text-lg">
-              {order.name}
+              {order.customer?.name}
             </h2>
-            <p>{order.address}</p>
-            <p>{order.phone}</p>
+            <p>{order.customer?.address}</p>
+            <p>{order.customer?.phone}</p>
           </div>
 
 

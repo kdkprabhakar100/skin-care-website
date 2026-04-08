@@ -10,6 +10,7 @@ import Checkout from "./pages/Checkout.jsx";
 import Order from "./pages/Order.jsx";
 import AdminOrders from "./pages/AdminOrder.jsx";
 import OrderSuccess from "./pages/OrderSuccess.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/orders" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/success" element={<OrderSuccess />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
 
       <Footer />

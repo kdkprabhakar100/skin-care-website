@@ -71,23 +71,23 @@ function AdminOrders() {
               {/* 👤 Customer */}
                 <div className="mb-3">
                   <h2 className="font-bold text-lg">
-                    {order.name}
+                    {order.customer?.name}
                   </h2>
-                  <p>{order.address}</p>
-                  <p>{order.phone}</p>
+
+                  <p>{order.customer?.address}</p>
+                  <p>{order.customer?.phone}</p>
                 </div>
 
               {/* 🛒 Items */}
               <div className="border-t pt-3">
                 {order.items?.map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex justify-between text-sm"
-                  >
+                  <div key={i} className="flex justify-between text-sm">
                     <p>
-                      {item.name} x {item.qty}
+                      {item.name} x {item.quantity || 1}
                     </p>
-                    <p>${item.price * item.qty}</p>
+                    <p>
+                      ${item.price * (item.quantity || 1)}
+                    </p>
                   </div>
                 ))}
               </div>

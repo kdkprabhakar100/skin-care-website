@@ -32,7 +32,7 @@ function CartProvider({ children }) {
     }
   };
 
-  // ➖ Decrease quantity
+  // ➖ Decrease qty
   const decreaseQty = (id) => {
     const exist = cart.find((item) => item._id === id);
 
