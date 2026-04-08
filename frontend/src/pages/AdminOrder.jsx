@@ -69,13 +69,13 @@ function AdminOrders() {
             >
 
               {/* 👤 Customer */}
-              <div className="mb-3">
-                <h2 className="font-bold text-lg">
-                  {order.customer?.name}
-                </h2>
-                <p>{order.customer?.address}</p>
-                <p>{order.customer?.phone}</p>
-              </div>
+                <div className="mb-3">
+                  <h2 className="font-bold text-lg">
+                    {order.name}
+                  </h2>
+                  <p>{order.address}</p>
+                  <p>{order.phone}</p>
+                </div>
 
               {/* 🛒 Items */}
               <div className="border-t pt-3">

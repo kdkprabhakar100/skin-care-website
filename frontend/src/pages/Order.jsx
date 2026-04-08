@@ -21,18 +21,21 @@ function Orders() {
           key={order._id}
           className="bg-white p-6 mb-4 rounded shadow"
         >
-          <h2 className="font-bold">
-            {order.customer.name}
-          </h2>
+          <div className="mb-3">
+            <h2 className="font-bold text-lg">
+              {order.name}
+            </h2>
+            <p>{order.address}</p>
+            <p>{order.phone}</p>
+          </div>
 
-          <p>{order.customer.address}</p>
-          <p>{order.customer.phone}</p>
 
           <div className="mt-3">
-            {order.items.map((item, i) => (
-              <p key={i}>
-                {item.name} x {item.qty}
-              </p>
+            {order.items?.map((item, i) => (
+              <div key={i} className="flex justify-between text-sm">
+                <p>{item.name} x {item.quantity}</p>
+                <p>${item.price * item.quantity}</p>
+              </div>
             ))}
           </div>
 

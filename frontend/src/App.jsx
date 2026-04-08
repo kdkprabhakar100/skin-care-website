@@ -9,7 +9,7 @@ import Admin from "./pages/Admin.jsx";
 import Checkout from "./pages/Checkout.jsx";  
 import Order from "./pages/Order.jsx";
 import AdminOrders from "./pages/AdminOrder.jsx";
-
+import OrderSuccess from "./pages/OrderSuccess.jsx";
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/orders" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/success" element={<OrderSuccess />} />
       </Routes>
 
       <Footer />

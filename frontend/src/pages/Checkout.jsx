@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
+
 
 function Checkout() {
   const { cart, totalPrice, clearCart } = useContext(CartContext);
@@ -14,56 +16,45 @@ function Checkout() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-    const handleOrder = async () => {
-    if (!form.name || !form.address || !form.phone) {
-        alert("Please fill all fields ❌");
-        return;
-    }
 
-    if (cart.length === 0) {
-        alert("Cart is empty ❌");
-        return;
-    }
+const navigate = useNavigate();
 
-    const order = {
-        customer: form,
-        items: cart.map((item) => ({
-        name: item.name,
-        price: item.price,
-        qty: item.qty,
-        productId: item._id,
+const handleOrder = async () => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,        // ✅ FIXED
+        address: form.address,  // ✅ FIXED
+        phone: form.phone,      // ✅ FIXED
+        items: cart.map(item => ({
+          productId: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.qty,
         })),
         total: totalPrice,
-    };
+      }),
+    });
 
-    try {
-        const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/orders`,
-        {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(order),
-        }
-        );
+    const data = await res.json();
 
-        const data = await res.json();
+    console.log("RESPONSE:", data);
 
-        if (!res.ok) {
-        throw new Error(data.message || "Order failed");
-        }
+    if (!res.ok) throw new Error(data.message);
 
-        console.log("Saved order:", data); // ✅ use data
+    clearCart();
+    navigate("/success");
 
-        alert("Order placed successfully ✅");
-        clearCart();
+  } catch (error) {
+    console.error("FULL ERROR:", error);
+    alert("Order failed ❌");
+  }
+};
 
-    } catch (error) {
-        console.error("Order error:", error);
-        alert("Order failed ❌");
-    }
-    };
 
   return (
     <div className="p-10 bg-[#F8F6F4] min-h-screen">
