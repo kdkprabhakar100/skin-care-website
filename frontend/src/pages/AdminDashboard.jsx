@@ -26,12 +26,13 @@ function AdminDashboard() {
   const shipped = orders.filter((o) => o.status === "Shipped").length;
   const delivered = orders.filter((o) => o.status === "Delivered").length;
 
-  // 🔥 BEST SELLER
+  // 🔥 BEST SELLER (FIXED)
   const productMap = {};
+
   orders.forEach((order) => {
     order.items?.forEach((item) => {
       productMap[item.name] =
-        (productMap[item.name] || 0) + item.quantity || 1;
+        (productMap[item.name] || 0) + (item.quantity || 1);
     });
   });
 
@@ -99,17 +100,17 @@ function AdminDashboard() {
               {/* 👤 CUSTOMER */}
               <div className="flex justify-between items-center mb-2">
                 <div>
-                    <h3 className="font-bold text-lg">
-                        {order.customer?.name}
-                    </h3>
+                  <h3 className="font-bold text-lg">
+                    {order.customer?.name}
+                  </h3>
 
-                    <p className="text-sm text-gray-500">
-                        {order.customer?.phone}
-                    </p>
+                  <p className="text-sm text-gray-500">
+                    {order.customer?.phone}
+                  </p>
 
-                    <p className="text-sm text-gray-500">
-                        {order.customer?.address}
-                    </p>
+                  <p className="text-sm text-gray-500">
+                    {order.customer?.address}
+                  </p>
                 </div>
 
                 {/* 💰 TOTAL */}
@@ -131,7 +132,7 @@ function AdminDashboard() {
                 {order.items?.map((item, i) => (
                   <div key={i} className="flex justify-between text-sm">
                     <p>
-                      {item.name} x {item.quantity}
+                      {item.name} x {item.quantity || 1}
                     </p>
                     <p className="font-medium">
                       ${item.price * (item.quantity || 1)}
@@ -142,7 +143,6 @@ function AdminDashboard() {
 
               {/* 🟢 STATUS */}
               <div className="mt-3 flex justify-between items-center">
-
                 <span
                   className={`px-3 py-1 text-sm rounded-full font-semibold ${
                     order.status === "Pending"
@@ -154,7 +154,6 @@ function AdminDashboard() {
                 >
                   {order.status || "Pending"}
                 </span>
-
               </div>
 
             </div>

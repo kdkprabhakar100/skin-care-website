@@ -11,6 +11,8 @@ import Order from "./pages/Order.jsx";
 import AdminOrders from "./pages/AdminOrder.jsx";
 import OrderSuccess from "./pages/OrderSuccess.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
+import AdminRoute from "./components/AdminRoute.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
 
 function App() {
   return (
@@ -27,7 +29,15 @@ function App() {
         <Route path="/orders" element={<Order />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/success" element={<OrderSuccess />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
       </Routes>
 
       <Footer />
