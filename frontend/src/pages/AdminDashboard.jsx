@@ -1,7 +1,18 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminDashboard() {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  <button
+  onClick={() => {
+    localStorage.removeItem("isAdmin");
+    navigate("/admin/login");
+  }}
+  className="bg-red-500 text-white px-4 py-2 rounded mb-4"
+>
+  Logout
+</button>
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/orders`)
