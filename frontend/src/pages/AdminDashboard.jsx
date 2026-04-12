@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer
+} from "recharts";
 
 function AdminDashboard() {
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
-  <button
-  onClick={() => {
-    localStorage.removeItem("isAdmin");
-    navigate("/admin/login");
-  }}
-  className="bg-red-500 text-white px-4 py-2 rounded mb-4"
->
-  Logout
-</button>
+
+  const chartData = {};
+  orders.forEach((order) => {
+  const date = new Date(order.createdAt).toLocaleDateString();
+
+  chartData[date] = (chartData[date] || 0) + order.total;
+});
+
+const chartArray = Object.keys(chartData).map((date) => ({
+  date,
+  revenue: chartData[date],
+}));
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/orders`)
@@ -167,10 +171,25 @@ function AdminDashboard() {
                 </span>
               </div>
 
+
             </div>
           ))
         )}
       </div>
+
+      <div className="bg-white p-6 rounded-xl shadow mb-10">
+        <h2 className="text-xl font-bold mb-4">Revenue Overview 📊</h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={chartArray}>
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="revenue" stroke="#6D1F2F" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+            
 
     </div>
   );
