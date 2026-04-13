@@ -13,6 +13,7 @@ import OrderSuccess from "./pages/OrderSuccess.jsx";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminRoute from "./components/AdminRoute.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import OrderDetails from "./pages/OrderDetails.jsx";
 
 function App() {
   return (
@@ -36,8 +37,10 @@ function App() {
               <AdminRoute>
                 <AdminDashboard />
               </AdminRoute>
+                
             }
           />
+        <Route path="/order/:id" element={<OrderDetails />} />
       </Routes>
 
       <Footer />

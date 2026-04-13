@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+
+  const navigate = useNavigate();
 
   // 🔄 Fetch orders
   const fetchOrders = async () => {
@@ -71,12 +74,14 @@ function AdminOrders() {
 
         <input
           type="text"
+          value={search}  // ✅ controlled input
           placeholder="Search by customer..."
           className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#6D1F2F]"
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select
+          value={statusFilter}  // ✅ controlled select
           className="border p-2 rounded"
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -85,6 +90,17 @@ function AdminOrders() {
           <option value="Shipped">Shipped</option>
           <option value="Delivered">Delivered</option>
         </select>
+
+        {/* 🔥 CLEAR FILTER BUTTON */}
+        <button
+          onClick={() => {
+            setSearch("");
+            setStatusFilter("All");
+          }}
+          className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition"
+        >
+          Clear Filters
+        </button>
 
       </div>
 
@@ -106,7 +122,8 @@ function AdminOrders() {
           {filteredOrders.map((order) => (
             <div
               key={order._id}
-              className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+              onClick={() => navigate(`/admin/orders/${order._id}`)} // 🔥 CLICKABLE
+              className="bg-white p-6 rounded-xl shadow hover:shadow-md transition cursor-pointer"
             >
 
               {/* 👤 CUSTOMER */}
@@ -145,37 +162,6 @@ function AdminOrders() {
                   Status: {order.status}
                 </p>
               </div>
-
-              {/* 🔘 ACTION BUTTONS */}
-              <div className="mt-3 flex gap-2 flex-wrap">
-
-                <button
-                  onClick={() => updateStatus(order._id, "Pending")}
-                  className="px-3 py-1 bg-gray-300 rounded hover:opacity-80"
-                >
-                  Pending
-                </button>
-
-                <button
-                  onClick={() => updateStatus(order._id, "Shipped")}
-                  className="px-3 py-1 bg-blue-500 text-white rounded hover:opacity-80"
-                >
-                  Shipped
-                </button>
-
-                <button
-                  onClick={() => updateStatus(order._id, "Delivered")}
-                  className="px-3 py-1 bg-green-500 text-white rounded hover:opacity-80"
-                >
-                  Delivered
-                </button>
-
-              </div>
-
-              {/* 📅 DATE */}
-              <p className="text-xs text-gray-500 mt-3">
-                {new Date(order.createdAt).toLocaleString()}
-              </p>
 
             </div>
           ))}
