@@ -33,10 +33,8 @@ function AdminLogin() {
         return;
       }
 
-      // ✅ Save token
       localStorage.setItem("token", data.token);
 
-      // ✅ Redirect properly
       navigate("/admin/dashboard");
 
     } catch (err) {
