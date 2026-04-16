@@ -1,4 +1,4 @@
-## Ecommerse website for selling different types of cream
+## AuraSkin – Smart Skincare E-Commerce Platform
 
 ## portfolio
 www.khadkaprabhakar.com.np

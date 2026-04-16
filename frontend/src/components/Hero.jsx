@@ -4,46 +4,49 @@ function Hero() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between px-10 py-20 bg-[#F8F6F4]">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-between px-10 md:px-20 bg-gradient-to-br from-[#F8F6F4] to-[#F1ECE8]">
 
-      {/* LEFT CONTENT */}
+      {/* LEFT */}
       <div className="max-w-xl">
 
+        <p className="text-sm text-gray-500 mb-2">
+          ✨ Trusted by 10,000+ skincare lovers
+        </p>
+
         <h1 className="text-5xl md:text-6xl font-bold text-[#6D1F2F] leading-tight">
-          Glow Naturally ✨
+          Your Skin,<br />But Better.
         </h1>
 
-        <p className="mt-5 text-gray-600 text-lg">
-          Hydrate, repair, and brighten your skin in just 7 days.
+        <p className="mt-6 text-gray-600 text-lg">
+          Discover dermatologist-approved skincare products designed
+          to hydrate, repair, and glow — naturally.
         </p>
 
         <div className="mt-8 flex gap-4">
+
           <button
             onClick={() => navigate("/shop")}
-            className="bg-[#6D1F2F] text-white px-8 py-3 rounded-lg hover:scale-105 transition"
+            className="bg-[#6D1F2F] text-white px-8 py-3 rounded-xl shadow-lg hover:scale-105 transition"
           >
             Shop Now
           </button>
 
-          <button className="border border-[#6D1F2F] text-[#6D1F2F] px-8 py-3 rounded-lg hover:bg-[#6D1F2F] hover:text-white transition">
-            Explore
+          <button
+            className="border border-[#6D1F2F] text-[#6D1F2F] px-8 py-3 rounded-xl hover:bg-[#6D1F2F] hover:text-white transition"
+          >
+            Learn More
           </button>
+
         </div>
 
       </div>
 
       {/* RIGHT IMAGE */}
-      <div className="relative mt-10 md:mt-0">
-
+      <div className="mt-10 md:mt-0">
         <img
-          src="https://images.unsplash.com/photo-1571779719707-0f24f62ab4fc?q=80&w=1121&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Skincare product"
-          className="w-96 rounded-2xl shadow-xl"
+          src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273"
+          className="w-[400px] md:w-[500px] rounded-2xl shadow-2xl"
         />
-
-        {/* Glow effect */}
-        <div className="absolute -top-6 -right-6 w-40 h-40 bg-[#6D1F2F]/20 rounded-full blur-3xl"></div>
-
       </div>
 
     </div>
